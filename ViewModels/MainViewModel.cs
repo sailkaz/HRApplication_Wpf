@@ -27,9 +27,6 @@ namespace HRApplication_Wpf.ViewModels
 
             var loginWindow = new LoginView();
             loginWindow.ShowDialog();
-
-            LoadedWindow(null);
-          
         }
 
         public ICommand AddEmployeeCommand { get; set; }
