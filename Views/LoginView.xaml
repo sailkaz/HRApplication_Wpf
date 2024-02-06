@@ -1,0 +1,81 @@
+﻿<mah:MetroWindow x:Class="HRApplication_Wpf.Views.LoginView"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HRApplication_Wpf.Views" 
+        xmlns:converters="clr-namespace:HRApplication_Wpf.Models.Converters" 
+        xmlns:viewmodels="clr-namespace:HRApplication_Wpf.ViewModels" 
+                 d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
+                 mc:Ignorable="d"
+                 Title="Okno logowania" 
+                 Name="LoginWindow"
+                 WindowStartupLocation="CenterScreen"
+                 Height="230" 
+                 Width="350">
+    <mah:MetroWindow.Resources>
+        <converters:PasswordConverter x:Key="passwordConverter"/>
+    </mah:MetroWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            FontSize="48"
+            Text="Login" 
+            Margin="5"/>
+        <Label Content="Nazwa użytkownika"  
+               Grid.Row="1"
+               Margin="5"/>
+        <TextBox Text="{Binding Nickname, UpdateSourceTrigger=PropertyChanged}"
+                 Name="Nickname"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="150"
+                Margin="5"/>
+        <Label Content="Hasło" 
+               Grid.Row="2"               
+               Margin="5"/>
+        <PasswordBox 
+                    Name="PasswordBox" 
+                    Grid.Row="2" 
+                    Grid.Column="1" 
+                    Width="150"
+                    Margin="5"/>
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="4"
+            Grid.Column="1">
+            <Button 
+                Content="Anuluj"
+                Height="30"
+                Width="80"
+                Margin="5"
+                Command="{Binding CancelCommand}"/>
+            <Button 
+                Content="Zaloguj"
+                Height="30"
+                Width="80"
+                Margin="5"
+                Command="{Binding ConfirmCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource passwordConverter}">
+                        <Binding ElementName="LoginWindow" />
+                        <Binding ElementName="PasswordBox" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>
